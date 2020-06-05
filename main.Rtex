@@ -1,0 +1,455 @@
+\documentclass{article}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage[utf8]{inputenc}
+\usepackage{lscape}
+\usepackage[colorlinks = true,
+            linkcolor = blue,
+            urlcolor  = blue,
+            citecolor = blue,
+            anchorcolor = blue]{hyperref}
+\usepackage{amsmath}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=blue,
+}
+\usepackage{tikz}
+\newcommand{\roundpic}[4][]{
+  \tikz\node [circle, minimum width = #2,
+    path picture = {
+      \node [#1] at (path picture bounding box.center) {
+        \includegraphics[width=#3]{#4}};
+    }] {};}
+    
+\usepackage{indentfirst}
+\usepackage[a4paper,margin={1.2in,1.5in},vmargin={1.2in,1.5in}]{geometry}
+\geometry{paperwidth=210mm,paperheight=297mm,
+textwidth=150mm,textheight=210mm,
+top=23mm,bottom=23mm,
+left=23mm,right=23mm}
+\usepackage[colorlinks,linkcolor=blue,hyperindex]{hyperref}
+\usepackage[brazil]{babel}
+\usepackage{graphicx,color,wrapfig}
+\usepackage{multicol}
+%\usetikzlibrary{mindmap}
+%\pagestyle{empty}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhead[]{}
+\rhead{\textit{Desenvolvimento de \textit{data products}}}
+\lhead{\thepage}
+\fancyfoot[]{}
+\renewcommand{\headrulewidth}{0.1pt}
+\usepackage{color,soul}
+\usepackage{color}
+\usepackage{listings}%pacote para literalizar os códigos do R no Latex
+\usepackage{xcolor}
+
+\usepackage[dvipsnames]{xcolor}
+
+\definecolor{mygray}{gray}{0.9}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{mygray},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+\lstset{style=mystyle}
+%=========fim da instrução do listings
+\usepackage{xcolor}
+\usepackage[fixed]{fontawesome5}
+\usepackage{tcolorbox}
+\usepackage{comment}
+
+\usepackage[framemethod=TikZ]{mdframed}
+\mdfdefinestyle{MyFrame}{%
+    linecolor=blue,
+    outerlinewidth=1pt,
+    roundcorner=40pt,
+    innertopmargin=\baselineskip,
+    innerbottommargin=\baselineskip,
+    innerrightmargin=10pt,
+    innerleftmargin=10pt,
+    backgroundcolor=gray!50!white}
+%============================================================
+%========================================================
+\begin{document}
+
+
+%============================================================
+
+\title{Desenvolvimento de \textit{data products} \\ \textit{por Universidade Johns Hopkins}}
+\author{\href{https://rhozon.github.io/}{Traduzido por Rodrigo Hermont Ozon\footnote{Economista e Mestre em Desenvolvimento Econômico pela UFPR.}}}
+\date{Junho, 2020}
+
+\maketitle
+
+
+
+\thispagestyle{empty}
+%===========================================================
+\newpage
+
+\begin{mdframed}[style=MyFrame]
+
+\fbox{%
+\roundpic[xshift=-.00000095cm,yshift=-.0006cm]{3.8cm}{3cm}{me.jpg}%
+}
+
+
+\section*{Sobre o autor desta tradução:}
+
+
+\textit{Rodrigo Hermont Ozon, economista e apaixonado por econometria, pelas aplicações de modelos econômicos a problemas reais e cotidianos vivenciados na sociedade e na realidade do mundo empresarial e corporativo.}
+
+
+\begin{flushleft}
+Seus contatos podem ser acessados em:
+
+\begin{itemize}
+\item \href{https://rhozon.github.io/}{\faGithub} \href{https://rhozon.github.io/}{Github}
+
+\item \href{https://www.linkedin.com/in/rodrigohermontozon/}{\faLinkedin} \href{https://www.linkedin.com/in/rodrigohermontozon/}{Linkedin} %
+\end{itemize}
+\end{flushleft}
+
+
+\end{mdframed}
+
+\vspace{9cm}
+
+
+\begin{abstract}
+Esta tradução tem por finalidade contribuir com aqueles profissionais que trabalham com \textit{data science} e que precisam de alternativas mais robustas e sólidas para prestação de seus serviços, entregas e aplicações. Este curso ensina como criar ferramentas para melhorar o processo de análise de dados, tomar decisões orientadas por dados ou para outra infraestrutura que suporte outros produtos de dados.
+
+Este e-book foi escrito no \href{http://www.overleaf.com}{overleaf} com o pacote knitr \href{https://www.coursera.org/learn/data-products/home/welcome}{para o curso online da plataforma do coursera}
+\end{abstract}
+
+
+\thispagestyle{empty}
+%==============================================================
+\newpage
+
+.
+
+\vspace{22cm}
+A minha amada família e ao Pedro e a Zoe, --  \textit{"Os filhos são herança do Senhor, uma recompensa que ele dá.."}
+
+\vspace{.15cm}
+\hspace{13cm}\href{https://www.bibliaon.com/versiculo/salmos_127_3-5/}{Salmo 127:3}
+
+\thispagestyle{empty}
+
+%==========================================================
+
+\newpage
+\tableofcontents
+%\lstlistoflistings
+
+
+
+%\hspace{12cm}\includegraphics[widht=1.5cm,height=1.5cm]{erasmussign.png}
+\thispagestyle{headings}
+
+\newpage
+%====================================================
+\section*{Nota do tradutor}
+.
+
+\vspace{5cm}
+Esse e-book traduzido é oriundo de \fbox{\textit{\href{https://www.coursera.org/learn/data-products/lecture/FXAbr/welcome-to-developing-data-products}{\textit{Developing Data Products}}}.}
+
+\vspace{.25cm}
+\href{https://static1.squarespace.com/static/5757268f7da24f26ca7b21d2/t/5c7587114192021796d7cc84/1551206162093/R_Overleaf_Integration.pdf}{Para que os scripts funcionem corretamente recomendo que você faça a integração do seu \faRProject Studio com o Overleaf observando \fbox{esse tutorial aqui}.}
+
+\vspace{.25cm}
+\textit{*As traduções aqui são somente as transcrições. Não me preocupei em aperfeiçoá-las para a língua portuguesa com maior nível de clareza nos textos. As figuras e imagens não foram traduzidas.}
+
+\newpage
+
+\section{Bem-vindo}
+\subsection{\href{https://www.coursera.org/learn/data-products/lecture/FXAbr/welcome-to-developing-data-products}{Bem vindo ao Desenvolvendo \textit{data products}}}
+
+Olá, meu nome é Bryan Caffo e bem-vindo para o curso Desenvolvimento de Data Products. 
+
+Este curso é sobre como criar ferramentas para melhorar o processo de análise de dados, tomar decisões orientadas a dados ou para outra infraestrutura que suporta outros produtos de dados.
+
+Esta é a segunda versão da classe, e foi co-desenvolvido por Shaun Cross
+que também faz parte do Departamento de Bioestatística da Johns Hopkins
+Bloomberg School of Public Health. Atualizamos grande parte do conteúdo antigo e estamos incluindo muitas técnicas novas para criar ferramentas de dados sob demanda no \faRProject. Então, apenas para visualizar algumas dos tópicos que abordaremos. 
+
+Com o pacote R Markdown, você pode criar sites, PDFs, apresentações e até e-books a partir de um único arquivo no \faRProject de uma maneira que você está muito confortável e familiar. Ensinaremos os últimos recursos do pacote Shiny que você pode usar para criar aplicações web interativas em \faRProject. Vamos falar sobre gráficos interativos usando Plotly e Leaflet, que permite criar belos mapas que você pode compartilhar online. 
+
+Faremos coisas semelhantes com o pacote GoogleViz, que permite criar mapas e gráficos e tabelas interativos. Também adicionamos como usar swirl e swirlify para criar cursos em \faRProject para que você possa compartilhar seu conhecimento. Então, obrigado por participar e nós estamos ansiosos para vê-lo na classe.
+
+\subsection{Uma nota explicativa}
+
+Este curso é usado em duas especializações diferentes. A Especialização em Data Science é uma sequência de 10 cursos que abrange toda a extensão do pipeline de ciência de dados, enquanto Data Science: Statistics and Machine Learning abrange apenas a segunda metade dessa sequência.
+
+Se você estiver cursando Data Science: Statistics and Machine Learning, observe que ocasionalmente encontrará referências à Especialização em Ciência de Dados completa de 10 cursos. Pedimos desculpas por qualquer confusão que essas referências possam causar.
+
+Se você não está preparado para os cursos de Data Science: Statistics and Machine Learning, considere primeiro concluir a Data Science: Foundations using \faRProject para criar as habilidades fundamentais que ajudarão você a se preparar para a próxima etapa do a jornada.
+
+\subsection{\href{https://www.coursera.org/learn/data-products/supplement/HzjiX/syllabus}{Programa de Estudos}}
+
+Programa de estudos -- leia no \href{https://datasciencespecialization.github.io/Developing_Data_Products/syllabus.html}{Github}
+
+
+\textbf{Curso de Desenvolvimento de data products}
+
+\vspace{.25cm}
+\textbf{Instrutor (es)}
+\vspace{.25cm}
+
+O instrutor principal desta classe é Brian Caffo
+
+Brian é professor da Johns Hopkins Biostatistics e co-dirige o grupo de trabalho SMART
+
+Esta aula é co-ministrada por Roger Peng e Jeff Leek.
+
+\vspace{.25cm}
+\textbf{Descrição do Curso}
+\vspace{.25cm}
+
+Um produto de dados é a saída de produção de uma análise estatística. Os produtos de dados automatizam tarefas de análise complexas ou usam a tecnologia para expandir a utilidade de um modelo, algoritmo ou inferência com base em dados. Este curso aborda os conceitos básicos da criação de produtos de dados usando os pacotes Shiny, \faRProject e gráficos interativos. O curso se concentrará nos fundamentos da criação de um produto de dados que pode ser usado para contar uma história sobre dados a um público em geral.
+
+Neste programa, os alunos aprenderão uma variedade de ferramentas básicas para criar produtos de dados no \faRProject e \faRProject Studio em específico. Os alunos serão avaliados através de questionários e um projeto culminante.
+
+\vspace{.25cm}
+\textbf{Conteúdo do curso}
+\vspace{.25cm}
+
+As palestras serão ministradas ao longo de quatro semanas, com a terceira semana dedicada à criação de pacotes \faRProject.
+
+As semanas estão organizadas da seguinte forma
+
+1. Shiny, rCharts, manipule, googleVis
+
+2. Apresentando análise de dados, slidify, apresentador do \faRProject Studio.
+
+3. Alunos criando e implantando seus projetos
+
+4. Criando pacotes, classes e métodos \faRProject, yhat.
+
+\vspace{.25cm}
+\textbf{Repositório do Github}
+\vspace{.25cm}
+
+As informações mais atualizadas nas notas da aula do curso sempre estarão no repositório do Github
+
+A especialização em ciência de dados está aqui
+
+https://github.com/DataScienceSpecialization/Developing_Data_Products
+
+Emita solicitações pull para que possamos melhorar os materiais.
+
+\vspace{.25cm}
+\textbf{Youtube}
+\vspace{.25cm}
+
+Se você preferir assistir aos vídeos no YouTube, a maioria deles pode ser encontrada aqui:
+
+\href{https://www.youtube.com/playlist?list=PLpl-gQkQivXhr9PyOWSA3aOHf4ZNTrs90}{link}
+
+\vspace{.25cm}
+\textbf{Livro: Desenvolvendo produtos de dados em \faRProject}
+\vspace{.25cm}
+
+Este livro apresenta o tópico Desenvolvimento de produtos de dados em \faRProject. Um produto de dados é a saída ideal de um experimento de ciência de dados. Este livro é baseado na classe Coursera "Developing Data Products" como parte da Especialização em Ciência de Dados. É dada ênfase especial ao desenvolvimento de aplicativos Shiny e gráficos interativos.
+
+O livro está disponível aqui: \href{https://leanpub.com/ddp}{https://leanpub.com/ddp}
+
+É preço flexível, incluindo um free! Ele também inclui algum conteúdo (como folheto) que não foi abordado na classe e omite outro. É um pouco difícil, mas enquanto eu trabalho nisso, você obtém todas as atualizações.
+
+\vspace{.25cm}
+\textbf{Testes semanais}
+\vspace{.25cm}
+
+Existem três testes semanais.
+
+Você deve obter uma nota de pelo menos 80\% para passar no teste
+Você pode tentar cada teste até 3 vezes em 8 horas.
+
+A pontuação da sua tentativa mais bem-sucedida contará para a sua nota final
+
+\vspace{.25cm}
+\textbf{Projeto do Curso}
+\vspace{.25cm}
+
+O Projeto do Curso é uma oportunidade para demonstrar as habilidades que você aprendeu durante o curso. É classificado através de avaliação pelos pares. Você deve obter uma nota de pelo menos 80\% para passar no projeto do curso.
+
+\vspace{.25cm}
+\textbf{Política de classificação}
+\vspace{.25cm}
+
+Você deve pontuar pelo menos 80\% em todas as tarefas (Testes e Projeto) para passar no curso.
+
+Sua nota final será calculada da seguinte forma:
+
+Teste 1 = 20\%
+
+Teste 2 = 20\%
+
+Teste 3 = 20\%
+
+Projeto do curso = 40\%
+
+\vspace{.25cm}
+\textbf{Diferenças de opinião}
+\vspace{.25cm}
+
+Lembre-se de que atualmente a análise de dados é tanto arte quanto ciência - portanto, podemos ter uma diferença de opinião - e tudo bem! Evite comentários irritados, sarcásticos ou abusivos nos fóruns. Nosso objetivo é criar uma comunidade de apoio que ajude na aprendizagem de todos os alunos, dos mais avançados aos que estão apenas vendo este material pela primeira vez.
+
+\vspace{.25cm}
+\textbf{Plágio}
+\vspace{.25cm}
+
+A Universidade Johns Hopkins define plágio como \textit{“...adotando para uso próprio as palavras, idéias, conceitos ou dados de outro sem a devida atribuição. O plágio inclui o uso direto ou parafraseado de palavras, pensamentos ou conceitos de outro sem a devida atribuição. ”} Levamos o plágio muito a sério.
+
+Reconhecemos que muitos estudantes podem não ter uma compreensão clara do que é o plágio ou por que está errado. Consulte o guia de referência da JHU para obter mais informações sobre plágio.
+
+É extremamente importante que você dê crédito às pessoas / fontes quando usar suas palavras ou idéias. Se você não der o devido crédito - principalmente ao citar diretamente de uma fonte -, viola a confiança de seus colegas.
+
+O código Coursera Honor inclui uma declaração explícita sobre plágio:
+
+Vou registrar apenas uma conta. Minhas respostas para trabalhos de casa, testes e exames serão meu próprio trabalho (exceto tarefas que permitam explicitamente a colaboração). Não disponibilizarei soluções para trabalhos de casa, questionários ou exames para mais ninguém. Isso inclui tanto as soluções escritas por mim quanto as soluções oficiais fornecidas pela equipe do curso. Não participarei de nenhuma outra atividade que melhore desonestamente meus resultados ou desonestamente melhore / prejudique os resultados de outras pessoas.
+
+\vspace{.25cm}
+\textbf{Relatando plágio em projetos de curso}
+\vspace{.25cm}
+
+Um dos critérios da rubrica do projeto se concentra no plágio. Lembre-se de que alguns componentes dos projetos serão muito semelhantes entre os termos e, portanto, respostas que parecem semelhantes podem ser coincidências honestas
+
+\newpage
+\subsection{\href{https://www.coursera.org/learn/data-products/supplement/LcJiH/welcome}{Bem vindo}}
+
+\textbf{Bem-vindo - \href{https://datasciencespecialization.github.io/Developing_Data_Products/welcome.html}{Leia no Github}}
+
+
+\vspace{.25cm}
+Fico feliz que você tenha decidido usar o Desenvolvendo Data Products, parte da Especialização em Ciência de Dados da Johns Hopkins Biostatistics!
+
+Um produto de dados é a saída de produção de uma análise estatística. Os produtos de dados automatizam tarefas de análise complexas ou usam a tecnologia para expandir a utilidade de um modelo, algoritmo ou inferência com base em dados. Este curso aborda os conceitos básicos da criação de produtos de dados usando os pacotes Shiny, \faRProject e gráficos interativos. Este curso enfoca os fundamentos estatísticos da criação de um produto de dados que pode ser usado para contar uma história sobre dados a um público em massa.
+
+Você aprenderá como se comunicar usando estatísticas e produtos estatísticos. Será dada ênfase à comunicação da incerteza nos resultados estatísticos. Você aprenderá como criar aplicativos Web Shiny e pacotes \faRProject simples para seus produtos de dados. Além disso, abordaremos apresentações reproduzíveis e gráficos interativos.
+
+Acreditamos que a palavra-chave em Ciência de Dados é "ciência". Nossa especialização está focada em fornecer a você três coisas: (1) uma introdução às idéias principais por trás do trabalho com dados de maneira científica que produzirá informações novas e reproduzíveis; (2) uma introdução às ferramentas que permitirão executar em uma estratégia de análise de dados, de dados brutos em um banco de dados a um relatório completo com gráficos interativos e (3) em oferecer muitas práticas na prática para que você possa aprender as técnicas por si mesmo. Este curso representa a engrenagem final em um aplicativo de ciência de dados, criando um produto de dados utilizável final.
+
+Estamos empolgados com a oportunidade de tentar ampliar a educação em ciência de dados. Pretendemos que os cursos sejam independentes, rápidos e interativos.
+
+\vspace{.25cm}
+\textbf{Alguns princípios}
+\vspace{.25cm}
+
+Um par de itens de pré-requisitos na primeira semana. Primeiro, verifique se você teve a \textit{R Programming} e \textit{Data Scientist’s Toolbox}. A \textit{Reproducible Research} seria útil, mas não é obrigatória. No mínimo, você deve saber: git muito básico, \faRProject básico e knitr muito básico.
+
+Um aspecto importante deste curso é examinar os materiais no repositório do github. Todo o material mais atualizado pode ser encontrado aqui: \href{https://github.com/DataScienceSpecialization/Developing_Data_Products}{repositório}
+
+Você deve clonar este repositório como sua primeira etapa nesta classe e buscar atualizações periodicamente. (Envie solicitações pull também!) É um dos componentes mais essenciais da Especialização que você começe a usar o Git com freqüência. Também estamos praticando o que pregamos usando as ferramentas da série para criar a série, especialmente o git.
+
+Você pode clonar o repositório inteiro com (http)
+
+\begin{itemize}
+    \item git clone https://github.com/DataScienceSpecialization/Developing\_Data\_Products.git
+    \item ou (ssh)
+    \item git clone git@github.com:DataScienceSpecialization/Developing\_Data\_Products.git
+\end{itemize}
+
+As aulas estão nos arquivos index.Rmd. Nestas aulas, mostraremos como criar esses tipos de slides. Você verá todo o código \faRProject para recriar as palestras. Passar pelo código \faRProject é a melhor maneira de se familiarizar com os materiais das aulas.
+
+O material da palestra para este curso é amplamente divulgado. Isso ocorre porque o último período da classe é dedicado ao desenvolvimento do aplicativo de dados. Assim, o curso deve ser executado em cerca de um mês ou talvez menos. No entanto, certifique-se de acompanhar as aulas no início, para que você tenha algum espaço em sua programação mais tarde para o desenvolvimento de aplicativos!
+
+Se você deseja acompanhar os instrutores que eu sou @bcaffo no twitter, Roger é @rdpeng e Jeff é @jtleek. O Departamento de Biostat aqui é @jhubiostat.
+
+\href{https://datasciencespecialization.github.io/Developing_Data_Products/welcome.html}{https://datasciencespecialization.github.io/Developing\_Data\_Products/welcome.html}
+
+\newpage
+
+\subsection{Livro: Developing Data Products in \faRProject}
+
+\textbf{Developing Data Products in R}
+\vspace{.25cm}
+
+This companion book for the class introduces the topic of Developing Data Products in R.
+
+You can get a copy here: \href{https://leanpub.com/ddp}{https://leanpub.com/ddp}
+
+It has variable pricing, including free!
+
+\begin{center}
+\includegraphics[width-8cm,height=6cm]{bookdevelopingdata.png}}
+\end{center}
+
+The book is available under variable pricing, including free! It also includes some content (like leaflet) that was not covered in the class and omits some other. It’s a little rough, but as I work on it you’ll get all of the updates.
+
+
+\href{https://github.com/seankross/slides/blob/gh-pages/Developing_Data_Products/start/book.pdf}{https://github.com/seankross/slides/blob/gh-pages/Developing\_Data\_Products/start/book.pdf}
+
+
+\subsection{Site da Comunidade}
+
+Desde o início da especialização em ciência de dados, percebemos a paixão inacreditável que os alunos têm por nossos cursos e a generosidade que demonstram entre si nos fóruns dos cursos. Alguns alunos criaram conteúdo de qualidade em torno dos assuntos que discutimos e muitos desses materiais são tão bons que achamos que devem ser compartilhados com todos os nossos alunos.
+
+Temos o prazer de anunciar que criamos um site usando as páginas do GitHub: 
+
+\href{http://datasciencespecialization.github.io/}{http://datasciencespecialization.github.io/} para servir como um diretório do conteúdo que a comunidade criou.
+
+ Se você criou materiais relacionados a qualquer um dos cursos da Especialização em ciência de dados, envie-nos uma solicitação de recebimento para que possamos adicionar um link para seu conteúdo em nosso site. Você pode descobrir mais sobre como contribuir aqui:
+
+\href{https://github.com/DataScienceSpecialization/DataScienceSpecialization.github.io#contributing}{https://github.com/DataScienceSpecialization/DataScienceSpecialization.github.io#contributing}
+
+Mal podemos esperar para ver o que você criou e para onde a comunidade pode acessar este site!
+
+\href{https://github.com/seankross/slides/blob/gh-pages/Developing_Data_Products/start/community.pdf}{https://github.com/seankross/slides/blob/gh-pages/Developing\_Data\_Products/start/community.pdf}
+
+
+
+
+
+
+
+
+%======================================================
+\newpage
+%=====================================================
+
+\begin{thebibliography}{99}
+
+\bibitem{overleaf} \textbf{Overleaf, online \LaTeX~ editor}. Disponível em \href{http://www.overleaf.com}{Overleaf.com} 
+
+\bibitem{xie} Xie, Y. \textbf{Dynamic Documents with \faRProject and knitr} 2nd edition, 2015.
+
+\bibitem{JARick} \textbf{Reproducible Research using \faRMarkdown and Overleaf.} Disponível em \href{https://static1.squarespace.com/static/5757268f7da24f26ca7b21d2/t/5c7587114192021796d7cc84/1551206162093/R_Overleaf_Integration.pdf}{Reproducible Research using RMarkdown and Overleaf}
+\end{thebibliography}
+
+
+
+
+
+
+
+
+
+
+%===================================================
+\end{document}
